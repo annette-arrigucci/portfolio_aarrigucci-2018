@@ -1,0 +1,490 @@
+﻿<link href="~/css/page-top-padding.css" rel="stylesheet">
+<link href="~/css/exercises.css" rel="stylesheet">
+
+
+
+<!-- Exercises Grid Section -->
+<section id="portfolio">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center page-start">
+                <h2>Exercises</h2>
+                <hr class="star-primary">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 portfolio-item">
+                <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
+                    <div class="caption">
+                        <div class="caption-content">
+                            <i class="fa fa-search-plus fa-3x"></i>
+                        </div>
+                    </div>
+                    <img src="~/img/exercises/numbers_functions_larger.png" class="img-responsive" alt="">
+                </a>
+            </div>
+            <div class="col-sm-6 portfolio-item">
+                <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
+                    <div class="caption">
+                        <div class="caption-content">
+                            <i class="fa fa-search-plus fa-3x"></i>
+                        </div>
+                    </div>
+                    <img src="~/img/exercises/factorial-image.png" class="img-responsive" alt="">
+                </a>
+            </div>
+            <div class="col-sm-6 portfolio-item">
+                <a href="#portfolioModal3" class="portfolio-link" data-toggle="modal">
+                    <div class="caption">
+                        <div class="caption-content">
+                            <i class="fa fa-search-plus fa-3x"></i>
+                        </div>
+                    </div>
+                    <img src="~/img/exercises/fizz-buzz-image.png" class="img-responsive" alt="">
+                </a>
+            </div>
+            <div class="col-sm-6 portfolio-item">
+                <a href="#portfolioModal4" class="portfolio-link" data-toggle="modal">
+                    <div class="caption">
+                        <div class="caption-content">
+                            <i class="fa fa-search-plus fa-3x"></i>
+                        </div>
+                    </div>
+                    <img src="~/img/exercises/palindrome-tester-image.png" class="img-responsive" alt="">
+                </a>
+            </div>
+           
+        </div>
+    </div>
+</section>
+<!-- Portfolio Modals -->
+<div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="modal-body">
+                        <h2>Numbers Functions</h2>
+                        <hr class="star-primary">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                 <div class="modal-body">
+                     <div class="col-sm-6">
+                          <div class="main">
+                               <div id="error-panel-numbers" class="error"></div>
+                                    <p>Enter at least five numbers to add to the array:</p>
+                                        <form id="enter-number-numbers">
+                                            <input type="text" id="new-number-numbers">
+                                            <button id="submit-button-numbers">Submit</button>
+                                        </form>
+                                        <div id="button-panel">
+                                            <div><button id="least-button">Least</button><span id="least-display"></span></div>
+                                            <div><button id="greatest-button">Greatest</button><span id="greatest-display"></span></div>
+                                            <div><button id="mean-button">Mean</button><span id="mean-display"></span></div>
+                                            <div><button id="sum-button">Sum</button><span id="sum-display"></span></div>
+                                            <div><button id="product-button">Product</button><span id="product-display"></span></div>
+                                        </div>
+                                        <p>Current numbers:</p>
+                                        <div id="current-numbers">
+
+                                        </div>
+                                        <button id="clear-button-numbers">Clear array</button>
+                                    </div>
+                                    <br />
+                                </div>
+                                <div class="col-sm-6">
+                                    <p>View code:</p>
+                                    <pre class="brush: js" style="text-align: left;">
+$(document).ready(function() {
+	var numbersArray = [];
+	$("#submit-button-numbers").click(function(event) {
+	    event.preventDefault();
+	    $("#error-panel-numbers").empty();
+		var myInput = $("#new-number-numbers").val();
+		if (myInput == '') {
+		    $("#error-panel-numbers").append("Please enter an integer<br>");
+		}
+        else if (+(myInput) % 1 != 0) {
+            $("#error-panel-numbers").append("Input must be an integer<br>");
+		}
+		else {
+			var number = parseInt(+(myInput));
+			addToArray(number);
+			$("#new-number-numbers").val('');
+		}
+	});
+	function addToArray(myNumber) {
+		numbersArray.push(myNumber);
+		$("#current-numbers").append(myNumber + "<br>");
+	}
+	function checkLength() {
+	    if (numbersArray.length < 5) {
+	        $("#error-panel-numbers").empty();
+	        $("#error-panel-numbers").append("Please enter at least five numbers<br>");
+	        return false;
+	    }
+	    else {
+	        return true;
+	    }
+	}
+	$("#least-button").click(function(event) {
+		if(checkLength()) {
+		    $("#least-display").text('');
+			$("#least-display").text("     " + least());
+		}
+	});
+	$("#greatest-button").click(function(event) {
+	    if (checkLength()) {
+		    $("#greatest-display").text('');
+		    $("#greatest-display").text("     " + greatest());
+		}
+	});
+	$("#mean-button").click(function(event) {
+	    if (checkLength()) {
+		    $("#mean-display").text('');
+		    $("#mean-display").text("     " + mean());
+		}
+	});
+	$("#sum-button").click(function(event) {
+	    if (checkLength()) {
+		    $("#sum-display").text('');
+		    $("#sum-display").text("     " + sum());
+		}
+	});
+	$("#product-button").click(function(event) {
+	    if (checkLength()) {
+		    $("#product-display").text('');
+		    $("#product-display").text("     " + product());
+		}
+	});
+	$("#clear-button-numbers").click(function (event) {
+	    numbersArray = [];
+	    $("#error-panel-numbers").empty();
+	    $("#current-numbers").text('');
+	    $("#least-display").text('');
+	    $("#greatest-display").text('');
+	    $("#mean-display").text('');
+	    $("#sum-display").text('');
+	    $("#product-display").text('');
+	});
+	function least() {
+		var myLeast = numbersArray[0];
+		for(var i=1; i < numbersArray.length; i++)
+        {
+             if (myLeast> numbersArray[i]){
+				myLeast = numbersArray[i];
+			}
+		}
+		return myLeast;
+	}
+	function greatest() {
+		var myGreatest = numbersArray[0];
+		for(var i=1; i < numbersArray.length; i++)
+           {
+             if (myGreatest < numbersArray[i]){
+				myGreatest = numbersArray[i];
+			}
+		}
+		return myGreatest;
+	}
+	function mean() {
+		var myMean = sum() / numbersArray.length;
+		return myMean;
+	}
+	function sum() {
+		var mySum = 0;
+		for(var i=0; i < numbersArray.length; i++){
+			mySum+=numbersArray[i];
+		}
+		return mySum;
+	}
+	function product() {
+		var myProduct = 1;
+		for(var i=0; i < numbersArray.length; i++){
+			myProduct*=numbersArray[i];
+		}
+		return myProduct;
+	}
+});
+     </pre>
+                                </div>
+
+                                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-content">
+                    <div class="close-modal" data-dismiss="modal">
+                        <div class="lr">
+                            <div class="rl">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8 col-lg-offset-2">
+                                <div class="modal-body">
+                                    <h2>Factorial Function</h2>
+                                    <hr class="star-primary">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="modal-body">
+                                <div class="col-sm-6">
+                                    <div class="text-center">
+                                        <div id="error-panel-factorial" class="error"></div>
+                                        <p>Enter non-negative integer:</p>
+                                        <form id="enter-number-factorial">
+                                            <input type="text" id="new-number-factorial">
+                                            <button id="submit-button-factorial">Submit</button>
+                                        </form>
+                                        <p>Factorial: </p>
+                                        <div id="factorial-result">
+                                        </div>
+                                    </div>
+                                    <br />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <p>View code:</p>
+                                <pre class="brush: js" style="text-align: left;">
+$(document).ready(function() {
+	$("#submit-button-factorial").click(function(event) {
+	    event.preventDefault();
+	    $("#error-panel-factorial").empty();
+		$("#factorial-result").empty();
+		var myInput = $("#new-number-factorial").val();
+		if (myInput == '') {
+		    $("#error-panel-factorial").append("Please enter a non-negative integer<br>");
+		}
+        else if (+(myInput) % 1 != 0) {
+			$("#error-panel-factorial").append("Input must be an integer<br>");
+		}
+		else if	(+(myInput) < 0){
+		    $("#error-panel-factorial").append("Input must not be negative");
+		}
+		else {
+			var number = parseInt(+(myInput));
+			$("#factorial-result").append(factorial(number));
+		}
+	});
+	function factorial(myNumber){
+		var myProduct = myNumber;
+		var i = myNumber;
+		while(i > 1) {
+			i--;
+		 	myProduct*=i;
+		}
+		return myProduct;
+	}
+});
+     </pre>
+                                </div>
+                           </div>
+                                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                         </div>
+                   </div>
+             </div>
+            <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-content">
+                    <div class="close-modal" data-dismiss="modal">
+                        <div class="lr">
+                            <div class="rl">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8 col-lg-offset-2">
+                                <div class="modal-body">
+                                    <h2>Fizz Buzz Function</h2>
+                                    <hr class="star-primary">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="main">
+                                    <div id="error-panel-fizz-buzz" class="error"></div>
+                                    <p>Enter two numbers between 1 and 100:</p>
+
+                                    <form id="enter-numbers-fizz-buzz">
+                                        <P>
+                                            <label for="number-1">First number</label><br>
+                                            <input type="text" id="number-1-fizz-buzz">
+                                        </P>
+                                        <p>
+                                            <label for="number-2">Second number</label><br>
+                                            <input type="text" id="number-2-fizz-buzz">
+                                        </p>
+                                    </form>
+                                
+                                    <p>Press the button to print out numbers 1 through 100 replacing number with "Fizz" if divisible by the first number, "Buzz" if divisible by the second number and "FizzBuzz" if divisible by both the first and second numbers.</p>
+                                    <button id="submit-button-fizz-buzz">FizzBuzz!</button>
+
+                                    <div id="fizz-buzz-result">
+                                    </div>
+                                </div>
+                            <br />
+                            </div>
+                            <div class="col-sm-6">
+                                <p>View code:</p>
+                                <pre class="brush: js" style="text-align: left;">
+$(document).ready(function() {
+	$("#submit-button-fizz-buzz").click(function(event) {
+	    event.preventDefault();
+	    $("#error-panel-fizz-buzz").empty();
+		$("#fizz-buzz-result").empty();
+		var myInput1 = $("#number-1-fizz-buzz").val();
+		var myInput2 = $("#number-2-fizz-buzz").val();
+		if(myInput1 == '' || myInput2 == ''){
+		    $("#error-panel-fizz-buzz").append("Please enter two values<br>");
+		}
+		else if(validateNumber(myInput1) && validateNumber(myInput2)){
+			var number1 = parseInt(myInput1);
+			var number2 = parseInt(myInput2);
+			fizzBuzz(number1, number2);
+		}
+	});
+	function validateNumber(myInput) {
+		if (+(myInput) % 1 != 0) {
+		    $("#error-panel-fizz-buzz").append("Input must be an integer<br>");
+			return false;
+		}
+		else if	((+(myInput) < 1) || (+(myInput) > 100)){
+		    $("#error-panel-fizz-buzz").append("Input must be between 1 and 100<br>");
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	function fizzBuzz(myNumber1, myNumber2){
+		for(var i=1; i<=100; i++){
+			if(i % myNumber1 == 0){
+				$("#fizz-buzz-result").append("Fizz");
+			}
+			if(i % myNumber2 == 0){
+				$("#fizz-buzz-result").append("Buzz");
+			}
+			if(i % myNumber1 != 0 && i % myNumber2 != 0) {
+				$("#fizz-buzz-result").append(i);
+			}
+			$("#fizz-buzz-result").append("<br>");
+		}
+	}
+});
+     </pre>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                       </div>
+                  </div>
+             </div>
+            <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-content">
+                    <div class="close-modal" data-dismiss="modal">
+                        <div class="lr">
+                            <div class="rl">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8 col-lg-offset-2">
+                                <div class="modal-body">
+                                    <h2>Palindrome Tester</h2>
+                                    <hr class="star-primary">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                               <div class="text-center">
+                                   <div id="error-panel-palindrome" class="error"></div>
+                                        <p>Enter a word:</p>
+                                        <form id="enter-word-palindrome">
+                                            <input type="text" id="new-word-palindrome" size="25">
+                                            <button id="submit-button-palindrome">Submit</button>
+                                        </form>
+                                        <p>Is palindrome: </p>
+                                        <p id="is-palindrome">
+                                        </p>
+                                    </div>
+                                    <br />
+                                </div>
+                                <div class="col-sm-6">
+                                    <p>View code:</p>
+                                    <pre class="brush: js" style="text-align: left;">
+$(document).ready(function() {
+	$("#submit-button-palindrome").click(function(event) {
+		event.preventDefault();
+		$("#is-palindrome").empty();
+		$("#error-panel-palindrome").empty();
+		var myInput = $("#new-word-palindrome").val();
+		if(myInput == ''){
+		    $("#error-panel-palindrome").append("Please enter a word<br>");
+		}
+		else {
+		    var letters = /^[a-zA-Z]+$/;
+		    if (myInput.match(letters)) {
+		        var myWord = myInput.toLowerCase();
+		        var letterArray = myWord.split("");
+		        if(checkPalindrome(letterArray) == true) {
+		            $("#is-palindrome").append("Yes");
+		        }
+		        else {
+		            $("#is-palindrome").append("No");
+		        }
+		    }
+		    else {
+		        $("#error-panel-palindrome").append("Please enter one word");
+		    }
+		}
+	});
+	function checkPalindrome(myLetterArray){
+		var middle = 0;
+		var isPalindrome = true; //flag if the word is a palindrome
+		var end = myLetterArray.length - 1;
+		if(myLetterArray.length % 2 == 1) {
+			middle = parseInt((myLetterArray.length - 1)/2);
+		}
+		else {
+			middle = myLetterArray.length / 2;
+		}
+		for(var i=0; i < middle; i++) {
+           if(myLetterArray[i] != =myLetterArray[end - i]){
+                isPalindrome=false;
+           }
+        }
+        return isPalindrome;
+    }
+});
+                        </pre>
+                                </div>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                            </div>
+                       </div>
+                  </div>
+            </div>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+            <script src="~/js/app-factorial.js"></script>
+            <script src="~/js/app-numbers.js"></script>
+            <script src="~/js/app-fizz-buzz.js"></script>
+            <script src="~/js/app-palindrome.js"></script>
+
+

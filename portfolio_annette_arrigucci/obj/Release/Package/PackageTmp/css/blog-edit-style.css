@@ -1,0 +1,4 @@
+﻿/*taking out the padding on the "Index" link at the bottom of the page so it aligns with the submit button*/
+.col-lg-4 {
+    padding-left: 0 !important;
+}

@@ -1,0 +1,31 @@
+﻿@model IEnumerable<portfolio_annette_arrigucci.Models.Comment>
+
+<div id="show-comments">
+    <br /><br />
+    <h3>Comments</h3>
+    @if (Model != null && Model.Any())
+    {
+        foreach (var item in Model)
+        {
+            <p>@Html.Raw(item.Body)</p>
+            if (!string.IsNullOrEmpty(item.AuthorId))
+            {
+                <p><b>Posted by @item.Author.DisplayName</b></p>
+            }
+            <p class="date"><b>@TimeZoneInfo.ConvertTime(item.Created, TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time")).ToString("M/d/yy h:mm tt")</b></p>
+            if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
+            {
+                <p>
+                    @Html.ActionLink("Edit", "Edit", "Comments", new { id = item.Id }, null) |
+                    @Html.ActionLink("Delete", "Delete", "Comments", new { id = item.Id }, null)
+                </p>
+            }
+            <br />
+        }
+    }
+    else
+    {
+        @Html.Raw("<p>No comments yet.</p><br /><br />")
+    }
+</div>
+        

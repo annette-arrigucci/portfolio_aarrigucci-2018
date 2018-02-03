@@ -1,0 +1,16 @@
+#portfolio .portfolio-item .portfolio-link {
+  max-width: 500px;
+}
+.modal-body .main {
+    text-align: left !important;
+}
+button {
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    margin-left: 0;
+    margin-right: 25px;
+}
+
+.error {
+    color: red;
+}

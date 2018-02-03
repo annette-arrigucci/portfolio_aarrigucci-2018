@@ -1,0 +1,24 @@
+﻿@model portfolio_annette_arrigucci.Models.Comment
+
+@section AddToHead{
+    <link href="@Url.Content("~/css/blog-details-style.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/form-style.css")" rel="stylesheet" type="text/css" />
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <h3>Create Comment</h3>
+
+        @using (Html.BeginForm("Create", "Comments", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <!--Passing in the PostId and PostSlug from the Model that was passed from the parent blog Details view-->
+            <input name="PostId" value="@Model.PostId" type="hidden" />
+                    <input name="PostSlug" value="@Model.PostSlug" type="hidden" />
+                    @Html.TextAreaFor(model => model.Body, new { @class = "form-control", @rows = "4" })
+                    @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+                    <input type="submit" value="Create" class="btn btn-default" />            
+    }
+    </div>
+</div>

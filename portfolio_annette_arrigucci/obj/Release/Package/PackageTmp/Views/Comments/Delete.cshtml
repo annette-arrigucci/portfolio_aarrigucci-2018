@@ -1,0 +1,97 @@
+﻿@model portfolio_annette_arrigucci.Models.Comment
+
+<link href="~/css/page-top-padding.css" rel="stylesheet">
+<link href="~/css/form-style.css" rel="stylesheet">
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center page-start">
+                <h2>Delete Comment</h2>
+                <hr class="star-primary">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <dl class="dl-horizontal">
+                    @if (!string.IsNullOrEmpty(Model.Author.FirstName) && !string.IsNullOrEmpty(Model.Author.LastName))
+                    {
+                        <dt>
+                            <p>@Html.LabelFor(model => model.Author.FirstName, "Author Name")</p>
+                        </dt>
+                        <dd>
+                            <p>@Model.Author.FirstName&nbsp;@Model.Author.LastName</p>
+                        </dd>
+                    }
+
+                    <dt>
+                        <p>@Html.LabelFor(model => model.Author.DisplayName, "Display Name")</p>
+                    </dt>
+                    <dd>
+                        <p>@Model.Author.DisplayName</p>
+                    </dd>
+
+                    <dt>
+                        <p>@Html.LabelFor(model => model.Author.Email, "Author Email")</p>
+                    </dt>
+                    <dd>
+                        <p>@Model.Author.Email</p>
+                    </dd>
+
+                    <dt>
+                        <p>@Html.DisplayNameFor(model => model.Body)</p>
+                    </dt>
+                    <dd>
+                        <p>@Html.DisplayFor(model => model.Body)</p>
+                    </dd>
+
+                    <dt>
+                        <p>@Html.DisplayNameFor(model => model.Created)</p>
+                    </dt>
+                    <dd>
+                        <p>@TimeZoneInfo.ConvertTime(Model.Created, TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time")).ToString("M/d/yy h:mm tt")</p>
+                    </dd>
+
+                    @if (Model.Updated != null)
+                    {
+                        <dt>
+                            <p>@Html.LabelFor(model => model.Updated, "Last Updated")</p>
+                        </dt>
+                        <dd>
+                            <p>@TimeZoneInfo.ConvertTime((System.DateTimeOffset)Model.Updated, TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time")).ToString("M/d/yy h:mm tt")</p>
+                        </dd>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.UpdateReason))
+                    {
+                        <dt>
+                            <p>@Html.LabelFor(model => model.Updated, "Update Reason")</p>
+                        </dt>
+                        <dd>
+                            <p>@Html.DisplayFor(model => model.UpdateReason)</p>
+                        </dd>
+                    }
+
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <dt></dt>
+                                @*<div class="form-actions">*@
+                        <dd>
+                            <input type="submit" value="Confirm Delete" class="btn btn-default" />
+                        </dd>                   
+                             @*</div>*@
+                    }
+                    <dt></dt>
+                    <dd>
+                        <p>@Html.ActionLink("Back to blog post", "Details", "BlogPosts", new { slug = Model.PostSlug }, null)</p>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</section>
